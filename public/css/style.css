@@ -1,0 +1,625 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+:root {
+    --golden: #FEBD14;
+}
+
+body {
+    font-family: "IBM Plex Serif", serif;
+    margin: 0;
+    padding: 0;
+    text-align: justify;
+}
+
+hr {
+    border: 10px solid;
+    border-image-slice: 1;
+    border-width: 3px;
+    border-image-source: linear-gradient(44deg, var(--golden), #fff, var(--golden));
+    opacity: 0.8;
+}
+
+.custom-alert {
+    position: fixed !important;
+    top: 5%;
+    left: 50%;
+    z-index: 9999;
+    min-width: 280px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    font-weight: 500;
+}
+
+/* Navbar geral */
+.custom-navbar {
+    background-color: black;
+    padding: 20px 0;
+    transition: all 0.4s ease;
+}
+
+.custom-navbar.shrink {
+    padding: 5px 0;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+/* Efeito esconder/mostrar navbar */
+.custom-navbar.hide {
+    transform: translateY(-100%);
+    transition: transform 0.4s ease;
+}
+
+.custom-navbar.show {
+    transform: translateY(0);
+}
+
+/* Logo principal */
+#cuboDourado {
+    width: 10%;
+    transition: width 0.4s ease;
+}
+
+.custom-navbar.shrink #cuboDourado {
+    width: 6%;
+}
+
+/* Banner container*/
+.banner-container {
+    position: relative;
+    overflow: hidden;
+    height: 90px;
+    width: 100%;
+    margin-left: 10px;
+}
+
+/* Banner curto e longo sobrepostos */
+.banner-curto,
+.banner-longo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: auto;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.banner-longo {
+    height: 130%;
+    width: auto;
+    margin-top: -2%;
+}
+
+.banner-curto {
+    z-index: 2;
+}
+
+.banner-longo {
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(100%);
+}
+
+/* Hover: curto sobe e some, longo entra */
+.banner-container:hover .banner-curto {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+.banner-container:hover .banner-longo {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Ajuste banners ao encolher navbar */
+.custom-navbar.shrink .banner-curto {
+    height: 90%;
+    width: auto;
+    top: 5%;
+}
+
+.custom-navbar.shrink .banner-longo {
+    margin-top: -1%;
+    width: auto;
+    height: 110%;
+}
+
+/* Navbar brand flex */
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    width: 70%;
+}
+
+/* Links do menu */
+#menu a {
+    color: white;
+    text-decoration: none;
+}
+
+#menu .nav-item {
+    margin-right: 15%;
+    font-size: 18px;
+}
+
+#navbarNav {
+    width: 15%;
+}
+
+
+/* Home */
+#home {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 5%;
+    color: #fff;
+    overflow: hidden;
+}
+
+#home::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('/Imagens/background-home 2.jpg') no-repeat center center / cover;
+    filter: blur(3px);
+    z-index: -1;
+    transform: scale(1.1);
+}
+
+/* overlay escuro pra legibilidade */
+#home .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/* conteúdo fica acima do overlay */
+#home .home-content {
+    position: relative;
+    max-width: 800px;
+    text-align: left;
+    margin-top: 5%;
+}
+
+/* Título principal */
+#home .left-title {
+    font-size: clamp(1.2rem, 4vw, 3rem);
+    /* mínimo 1.2rem, máximo 3rem, responsivo */
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+/* Texto descritivo */
+#home .left-text {
+    font-size: clamp(0.9rem, 2.5vw, 1.25rem);
+    /* ajusta automaticamente em telas pequenas */
+    margin: 1rem 0 2rem;
+}
+
+.btncontato {
+    width: 50%;
+}
+
+.btncontato i {
+    vertical-align: middle;
+    padding-left: 10%;
+}
+
+/* Text-swap (curto/longo) */
+.text-curto,
+.text-longo {
+    position: absolute;
+    top: 0;
+    left: 10%;
+    white-space: nowrap;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    font-weight: 400;
+    font-size: clamp(1.2rem, 3vw, 2.5rem);
+    /* reduz automaticamente */
+}
+
+.text-curto {
+    z-index: 2;
+}
+
+.text-longo {
+    z-index: 1;
+    transform: translateY(100%);
+    opacity: 0;
+    display: inline-block;
+}
+
+/* Hover: curto sobe, longo aparece */
+.text-swap:hover .text-curto {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+.text-swap:hover .text-longo {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* ABOUT */
+#sobre img {
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+#sobre .descricao {
+    margin-top: 10%;
+    font-size: 18px;
+}
+
+/* Ferramentas */
+#ferramentas {
+    height: 23rem;
+}
+
+#ferramentas .swiper-slide {
+    padding-top: 2%;
+}
+
+/* wrapper com a máscara */
+#ferramentas .swiper-slide .fmask {
+    width: 15rem;
+    height: 6rem;
+    margin: 0 auto;
+    display: inline-block;
+    background: gray;
+    -webkit-mask-image: var(--mask);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    -webkit-mask-size: contain;
+    mask-image: var(--mask);
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    filter: grayscale(100%);
+    opacity: 0.8;
+}
+
+#ferramentas .swiper-slide .fmask.selecionada {
+    background: linear-gradient(45deg, #FEBD14, #fff7d1) ;
+    filter: none; /* remove preto e branco */
+    opacity: 1;
+}
+
+/* no hover vira dourado */
+#ferramentas .swiper-slide .fmask:hover {
+    background: linear-gradient(45deg, #FEBD14, #fff7d1);
+    filter: none;/* remove preto e branco */
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+
+footer {
+    font-weight: 300;
+    font-style: italic;
+    min-height: auto;
+}
+
+
+@media (max-width: 768px) {
+    #cuboDourado {
+        height: 3rem;
+        width: auto;
+    }
+    .custom-navbar.shrink #cuboDourado {
+        width: auto;
+        height: 3rem;
+    }
+
+    .navbar-brand {
+        width: 80%;
+    }
+
+    /* Banner curto e longo sobrepostos */
+    .banner-curto,
+    .banner-longo {
+        height: 60%;
+        width: auto;
+        margin-top: 7%;
+    }
+
+    .banner-longo {
+        height: auto;
+        width: 100%;
+        margin-top: 5%;
+    }
+
+    /* Ajuste banners ao encolher navbar */
+    .custom-navbar.shrink .banner-curto,
+    .custom-navbar.shrink .banner-longo {
+        height: auto;
+        width: 100%;
+        margin-top: 5%;
+    }
+
+    #sobre img {
+        height: 30%;
+        display: block;
+        margin: 3rem auto;
+    }
+
+    #sobre .flex-column {
+        margin-top: -60%;
+    }
+
+    #sobre h2 {
+        text-align: center;
+    }
+
+    footer {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+.dourado {
+    color: var(--golden);
+}
+
+
+
+ /* --- FLIP (classe .flipped controla a rotação) --- */
+.flip-card {
+    background-color: transparent;
+    width: 100%;
+    height: 450px;
+    perspective: 1000px;
+    margin: auto;
+    cursor: pointer;
+    position: relative;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s ease;
+    transform-style: preserve-3d;
+}
+
+/* Card gira quando tem a classe flipped */
+.flip-card.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    box-sizing: border-box;
+    color: white;
+    background-color: #111;
+    background-image: linear-gradient(154deg,
+            rgb(0 0 0 / 54%) 0% 30%,
+            rgba(254, 189, 20, 0.2) 50%,
+            rgb(0 0 0 / 100%) 72%);
+}
+
+.flip-card-back {
+    transform: rotateY(180deg);
+}
+
+/* Controle de clique */
+.flip-card-front {
+    pointer-events: auto;
+}
+
+.flip-card.flipped .flip-card-front {
+    pointer-events: none;
+}
+
+.flip-card.flipped .flip-card-back {
+    pointer-events: auto;
+}
+
+#formContato {
+    width: 100%;
+}
+
+#formContato button {
+    color: #111;
+    background-image: linear-gradient(154deg, var(--golden), white, var(--golden));
+    border: none;
+}
+
+/* Cubo atrás */
+.cubo-container {
+    width: 100%;
+    height: 100%;
+}
+
+.cubo-card {
+    position: relative;
+    top: 45%;
+    left: 52%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    height: auto;
+    z-index: 1;
+}
+
+/* Container das letras */
+.logo-card-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    z-index: 2;
+    height: 80%;
+}
+
+/* Letras individuais */
+.letra-a {
+    filter: brightness(100);
+    opacity: 0.5;
+}
+
+.flip-card-back .logo-card {
+    width: 80%;
+}
+
+/* ICONE */
+.tip-flip {
+    position: absolute;
+        opacity: 0.5;
+        /* Fica por cima de tudo */
+        bottom: 20px;
+        /* Ajuste como quiser */
+        right: 20px;
+        /* Ou left, se preferir */
+        font-size: 3rem;
+        /* Tamanho decente pra chamar atenção */
+        color: var(--golden, #febd14);
+        /* Usa sua cor dourada, se existir */
+        z-index: 999;
+        /* PISA em todo mundo */
+        animation: vai-volta 7s ease-in-out infinite;
+        /* Loop eterno, claro */
+}
+
+@keyframes vai-volta {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(180deg) scale(1.2);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+/* Responsivo: move o card para baixo em telas menores */
+@media (max-width: 995px) {
+
+    /* Faz a coluna do card ocupar 100% e ficar abaixo */
+    #contato .col.ms-5 {
+        margin-left: 0;
+        /* remove margem lateral */
+        margin-top: 2rem;
+        /* dá espaçamento para descer */
+        width: 100%;
+        /* ocupa toda a largura */
+    }
+
+    /* Faz a coluna do texto ocupar 100% */
+    #contato .col-4.me-5 {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 2rem;
+        /* dá espaço para o card */
+    }
+
+    /* Opcional: centraliza o card horizontalmente */
+    #contato .flip-card {
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 995px) {
+    .form-card {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    .logo-card {
+        display: none;
+    }
+    .cubo-card {
+        width: 50%;
+    }
+}
+
+
+#cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #111;
+    color: #fff;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    max-height: 60px;
+    /* altura inicial só com aviso curto */
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+}
+
+.cookie-short {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    cursor: pointer;
+}
+
+#expand-cookie {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.cookie-full {
+    padding: 0 2rem 1rem 2rem;
+    display: block;
+}
+
+#cookie-banner.expanded {
+    max-height: 500px;
+    /* altura suficiente para o texto completo */
+}
+
+#cookie-banner.expanded #expand-cookie {
+    transform: rotate(180deg);
+    /* seta vira pra cima */
+}
+
+.cookie-section h5 {
+    margin: 0.5rem 0 0.25rem 0;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.cookie-section p {
+    margin: 0 0 0.5rem 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+#accept-cookies {
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: #FFD700;
+    color: #111;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    right: 0;
+}

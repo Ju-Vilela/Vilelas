@@ -1,0 +1,13 @@
+# Node modules
+node_modules/
+
+# Logs
+*.log
+
+# Ambiente
+.env
+
+# Build outputs (se houver)
+dist/
+build/
+out/
