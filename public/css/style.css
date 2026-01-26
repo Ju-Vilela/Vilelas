@@ -446,6 +446,12 @@ footer {
     border: none;
 }
 
+.btn-loader {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
 /* Cubo atrás */
 .cubo-container {
     width: 100%;

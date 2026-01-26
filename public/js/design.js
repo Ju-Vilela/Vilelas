@@ -142,6 +142,22 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+// FORM CARREGANDO
+function setLoading(isLoading) {
+    const btn = document.getElementById('btnEnviar');
+    const text = btn.querySelector('.btn-text');
+    const loader = btn.querySelector('.btn-loader');
+
+    btn.disabled = isLoading;
+
+    if (isLoading) {
+        text.classList.add('d-none');
+        loader.classList.remove('d-none');
+    } else {
+        text.classList.remove('d-none');
+        loader.classList.add('d-none');
+    }
+}
 
 
 // EMAIL
@@ -164,7 +180,7 @@ function criarMailto() {
 
     body += "\nFicaria feliz se pudessem me enviar mais informações ou um possível contrato/serviço que se encaixe nas nossas necessidades.\n\nAguardo seu retorno.\n\nMensagem de envio automático.\n";
 
-    const subject = `Solicitação de serviço – ${nome || "Cliente potencial"}`;
+    const subject = `Solicitação de serviço – ${nome || empresa || "Cliente potencial"}`;
     const mailto = `mailto:bruno@vilelasae.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
     // Abrir o rascunho no cliente de e-mail

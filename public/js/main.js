@@ -82,9 +82,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         const telefoneVal = draft.telefone?.current?.trim() || "";
 
         const hasIdentifier = nomeVal || empresaVal;
-        const hasContact = emailVal || telefoneVal;
+        const hasPhone = telefoneVal.length >= 8;
+        const hasValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
 
-        if (hasIdentifier && hasContact) {
+        if (hasIdentifier && (hasPhone || hasValidEmail)) {
             draftId = await saveDraftToServer(draft, draftId, false);
         }
     }
@@ -104,6 +105,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
         if (submitted || !draftId) return;
+        setLoading(true);
 
         const nome = document.getElementById('inputNome');
         const empresa = document.getElementById('inputEmpresa');
@@ -132,6 +134,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         if (validoNomeEmpresa && validoContato) {
             try {
+                await enviarFormulario()
                 const res = await fetch(`/api/draft/${draftId}/send`, { method: "PUT" });
                 if (res.ok) {
                     submitted = true;
@@ -146,6 +149,8 @@ document.addEventListener("DOMContentLoaded", async () => {
             } catch (err) {
                 console.error("Erro ao enviar draft:", err);
                 showAlert("<i class='bi bi-bug-fill'></i> Erro inesperado.", "warning");
+            } finally {
+                setLoading(false);
             }
         } else {
             if (!validoNomeEmpresa) [nome, empresa].forEach(c => c.style.border = '2px solid red');
@@ -154,6 +159,30 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     });
 
+    async function enviarFormulario() {
+        const data = {
+            nome: document.getElementById('inputNome').value,
+            email: document.getElementById('inputEmail').value,
+            telefone: document.getElementById('inputTelefone').value,
+            empresa: document.getElementById('inputEmpresa').value,
+            mensagem: document.getElementById('inputMensagem').value
+        };
+
+        const res = await fetch('/api/form/send', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+
+        if (!res.ok) {
+            const text = await res.text();
+            throw new Error(text);
+        }
+
+        const json = await res.json();
+    }
+
+    
     // ----- Ao fechar/recarregar -----
     window.addEventListener("beforeunload", () => {
         localStorage.setItem(storageKey, JSON.stringify(draft));
