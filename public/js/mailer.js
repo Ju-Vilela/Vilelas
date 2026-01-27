@@ -6,11 +6,11 @@ async function sendFormEmail({ nome, email, telefone, empresa, mensagem }) {
     const mensagemHtml = converterTEXT_HTML(mensagem || "");
 
     await resend.emails.send({
-        from: 'V@E Website <onboarding@resend.dev>', // depois você troca pelo seu domínio
+        from: `V@E Website <${[process.env.EMAIL_FROM]}>`,
         to: [process.env.EMAIL_TO],
         subject: `V@E: Solicitação de serviço – ${nome || empresa || "Cliente potencial"}`,
         html: `
-            <div style="font-family: "IBM Plex Serif", serif; line-height: 1.6">
+            <div style="font-family: 'IBM Plex Serif', serif; line-height: 1.6">
                 <h2>Solicitação de serviço.</h2>
 
                 <p>
