@@ -6,7 +6,7 @@ async function sendFormEmail({ nome, email, telefone, empresa, mensagem }) {
     const mensagemHtml = converterTEXT_HTML(mensagem || "");
 
     await resend.emails.send({
-        from: `V@E Website <${[process.env.EMAIL_FROM]}>`,
+        from: `VAE Website <${[process.env.EMAIL_FROM]}>`,
         to: [process.env.EMAIL_TO],
         subject: `V@E: Solicitação de serviço – ${nome || empresa || "Cliente potencial"}`,
         html: `
