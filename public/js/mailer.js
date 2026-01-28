@@ -1,13 +1,22 @@
-const { Resend } = require('resend');
-const resend = new Resend(process.env.RESEND_API_KEY);
-const BASE_URL = process.env.APP_URL;
+require('dotenv').config();
+const nodemailer = require('nodemailer');
+
+const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    secure: false, // true se usar 465
+    auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS
+    }
+});
 
 async function sendFormEmail({ nome, email, telefone, empresa, mensagem }) {
     const mensagemHtml = converterTEXT_HTML(mensagem || "");
 
-    await resend.emails.send({
-        from: `VAE Website <${[process.env.EMAIL_FROM]}>`,
-        to: [process.env.EMAIL_TO],
+    await transporter.sendMail({
+        from: `"V@E Website" <${process.env.SMTP_USER}>`,
+        to: process.env.EMAIL_TO,
         subject: `V@E: Solicitação de serviço – ${nome || empresa || "Cliente potencial"}`,
         html: `
             <div style="font-family: 'IBM Plex Serif', serif; line-height: 1.6">
@@ -27,10 +36,17 @@ async function sendFormEmail({ nome, email, telefone, empresa, mensagem }) {
                 <div>
                     <small style="font-style: italic;">Enviado automaticamente pelo sistema</small>
                     <br>
-                    <img src="${BASE_URL}/imagens/assinatura.png" alt="Assinatura" style="width:70%; max-width:400px;" />
+                    <img style="width: 70%;" src="cid:assinatura" />
                 </div>
             </div>
-        `
+        `,
+        attachments: [
+            {
+                filename: 'assinatura.png',
+                path: './public/Imagens/assinatura.png',
+                cid: 'assinatura'
+            }
+        ]
     });
 }
 
