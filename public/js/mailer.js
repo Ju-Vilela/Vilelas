@@ -43,7 +43,7 @@ async function sendFormEmail({ nome, email, telefone, empresa, mensagem }) {
         attachments: [
             {
                 filename: 'assinatura.png',
-                path: './public/Imagens/assinatura.png',
+                path: './public/imagens/assinatura.png',
                 cid: 'assinatura'
             }
         ]
