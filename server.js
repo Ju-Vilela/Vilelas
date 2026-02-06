@@ -13,6 +13,10 @@ const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('/', (req, res) => {
+    res.status(200).send('Site online');
+});
+
 // Rotas
 app.use('/api/visit', visitRoutes);
 app.use('/api/draft', draftRoutes);
@@ -25,7 +29,7 @@ async function startServer() {
         console.log('MongoDB conectado');
 
         const PORT = process.env.PORT || 3000;
-        app.listen(PORT, () => {
+        app.listen(PORT, '0.0.0.0', () => {
             console.log(`Servidor rodando na porta ${PORT}`);
         });
     } catch (err) {

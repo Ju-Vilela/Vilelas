@@ -15,8 +15,8 @@ router.post('/send', async (req, res) => {
 
         res.json({ success: true, message: "Formulário enviado com sucesso!" });
     } catch (err) {
-        console.error(err);
-        res.status(500).send("Erro ao enviar o formulário");
+        console.error('ERRO:', err);
+        res.status(500).send(err.message || 'Erro ao enviar o formulário');
     }
 });
 
