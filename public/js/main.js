@@ -79,11 +79,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         const nomeVal = draft.nome?.current?.trim() || "";
         const empresaVal = draft.empresa?.current?.trim() || "";
         const emailVal = draft.email?.current?.trim() || "";
-        const telefoneVal = draft.telefone?.current?.trim() || "";
+        const telefoneRaw = draft.telefone?.current || "";
 
         const hasIdentifier = nomeVal || empresaVal;
-        const hasPhone = telefoneVal.length >= 8;
         const hasValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal);
+        const telefoneNumeros = onlyNumbers(telefoneRaw);
+        const hasPhone = telefoneNumeros.length >= 10;
 
         if (hasIdentifier && (hasPhone || hasValidEmail)) {
             draftId = await saveDraftToServer(draft, draftId, false);
@@ -119,8 +120,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const nomeVal = nome.value.trim();
         const empresaVal = empresa.value.trim();
-        const emailVal = email.value.trim();
-        const telefoneVal = telefone.value.trim();
+        const emailVal = email.value.trim(); 
+        const telefoneVal = onlyNumbers(telefone.value);
 
         const validoNomeEmpresa = nomeVal || empresaVal;
         const validoContato = emailVal || telefoneVal;
@@ -216,3 +217,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
     });
 });
+
+function onlyNumbers(value) {
+    return value.replace(/\D/g, '');
+}
